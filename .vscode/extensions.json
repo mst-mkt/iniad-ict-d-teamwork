@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "batisteo.vscode-django",
+    "charliermarsh.ruff",
+    "monosans.djlint",
+    "esbenp.prettier-vscode"
+  ]
+}
