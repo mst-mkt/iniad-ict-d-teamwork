@@ -1,5 +1,11 @@
 django
 django-tabler-icons
 
+langchain
+langchain_community
+langchain_openai
+langchain-qdrant
+langchain_experimental
+
 ruff
 djlint
