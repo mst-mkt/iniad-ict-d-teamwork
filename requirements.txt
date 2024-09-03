@@ -1,0 +1,5 @@
+django
+django-tabler-icons
+
+ruff
+djlint
