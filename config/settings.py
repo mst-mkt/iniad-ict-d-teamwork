@@ -64,7 +64,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = "ja-JP"
+LANGUAGE_CODE = "ja"
 
 TIME_ZONE = "Asia/Tokyo"
 
