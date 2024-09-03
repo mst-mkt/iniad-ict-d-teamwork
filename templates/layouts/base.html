@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        {% block css %}
+        {% endblock css %}
+        <title>デートプラン</title>
+        <meta name="description" content="デートプランAI">
+        <meta name="keywords" content="date, ai">
+        {% block js %}
+        {% endblock js %}
+    </head>
+    <body>
+        <div class="container">
+            {% include "components/header.html" %}
+            <main>
+                {% block content %}
+                {% endblock content %}
+            </main>
+            {% include "components/footer.html" %}
+        </div>
+    </body>
+</html>
