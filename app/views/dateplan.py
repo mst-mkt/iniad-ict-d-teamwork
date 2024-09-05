@@ -5,10 +5,12 @@ from langchain_openai import ChatOpenAI
 
 from config.settings import HOT_PEPPER_API_KEY
 
+from ..constants import HOT_PEPPER_API_BASEURL, OPENAI_API_BASEURL
+
 
 def dateplan_view(request: HttpRequest) -> HttpResponse:
     shop_ids = request.GET.getlist("shop_ids")
-    request_url = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
+    request_url = HOT_PEPPER_API_BASEURL
 
     print(shop_ids)
 
@@ -28,7 +30,7 @@ def dateplan_view(request: HttpRequest) -> HttpResponse:
         model="gpt-4o-mini",
         temperature=0,
         streaming=True,
-        openai_api_base="https://api.openai.iniad.org/api/v1/",
+        openai_api_base=OPENAI_API_BASEURL,
     )
 
     prompt = f"あなたはデートプランナーです。以下のお店を参考にして、デートプランを提案してください。\n\n - {shops[0]['name']} - {shops[0]['address']}\n - {shops[1]['name']} - {shops[1]['address']}\n - {shops[2]['name']} - {shops[2]['address']}\n\nデートプラン："

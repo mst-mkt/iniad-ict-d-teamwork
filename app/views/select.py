@@ -4,10 +4,12 @@ from django.shortcuts import render
 
 from config.settings import HOT_PEPPER_API_KEY
 
+from ..constants import HOT_PEPPER_API_BASEURL
+
 
 def select_view(request: HttpRequest) -> HttpResponse:
     shop_ids = request.GET.getlist("shop_ids")
-    request_url = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
+    request_url = HOT_PEPPER_API_BASEURL
 
     print(shop_ids)
 
