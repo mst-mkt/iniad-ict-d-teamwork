@@ -35,3 +35,19 @@ def get_gourmet_genres() -> list:
     genres = res_json["results"]["genre"]
 
     return genres
+
+
+def generate_gourmet_info(shop: dict) -> str:
+    name = shop["name"]
+    catch = shop["catch"]
+    id = shop["id"]
+    address = shop["address"]
+    station = shop["station_name"]
+    genre = shop["genre"]["name"]
+
+    return f"""
+    {name} (ID: {id})
+    {catch}
+    {genre} / 最寄り:{station}
+    {address}
+    """

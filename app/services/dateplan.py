@@ -9,6 +9,8 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from config.settings import VECTOR_DB_DIR_PATH
 
 from ..constants import OPENAI_API_BASEURL
+from .grourmet import generate_gourmet_info
+from .maps import generate_place_info
 
 embedding_function = OpenAIEmbeddings(openai_api_base=OPENAI_API_BASEURL)
 db = Chroma(persist_directory=VECTOR_DB_DIR_PATH, embedding_function=embedding_function)
@@ -40,10 +42,22 @@ def format_docs(docs):
 
 
 def create_date_plan_with_rag(spots, restaurants, weather_info, query):
-    template = """以下のcontextのみに基づいて質問にできるだけ詳しくjson形式で答えなさい。:
+    template = """
+    以下のcontextを使って、デートのプランを作成してください。
+    ```
     {context}
+    ```
 
-    質問: {question}
+    また、以下のユーザーの要望を満たすようにしてください。
+    要望: {query}
+    デートスポット:
+    {spots}
+    飲食店:
+    {restaurants}
+    天気情報:
+    {weather}
+
+    デートプランは以下の形式に**絶対に**従い、JSON形式で出力してください。
     出力形式:
     ```
     class DatePlanStepModel(BaseModel):
@@ -60,12 +74,21 @@ def create_date_plan_with_rag(spots, restaurants, weather_info, query):
     ```
     """
 
-    prompt = ChatPromptTemplate.from_template(template, partial_variables={})
+    prompt = ChatPromptTemplate.from_template(
+        template,
+        partial_variables={
+            "spots": "\n\n".join([generate_place_info(spot) for spot in spots]),
+            "restaurants": "\n\n".join(
+                [generate_gourmet_info(restaurant) for restaurant in restaurants]
+            ),
+            "weather": weather_info["weather"][0]["description"],
+        },
+    )
 
     chain = (
         {
             "context": retriever | format_docs,
-            "question": RunnablePassthrough(),
+            "query": RunnablePassthrough(),
         }
         | prompt
         | llm.with_structured_output(DatePlanModel, method="json_mode")
