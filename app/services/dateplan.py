@@ -33,8 +33,10 @@ class DatePlanStepModel(BaseModel):
 
 
 class DatePlanModel(BaseModel):
+    title: str = Field(description="Title of the date plan")
     message: str = Field(description="Message of the date plan")
     steps: list[DatePlanStepModel]
+    advice: str = Field(description="Advice for the date plan")
 
 
 def format_docs(docs):
@@ -69,8 +71,10 @@ def create_date_plan_with_rag(spots, restaurants, weather_info, query):
 
 
     class DatePlanModel(BaseModel):
+        title: str = Field(description="Title of the date plan")
         message: str = Field(description="Message of the date plan")
         steps: list[DatePlanStepModel]
+        advice: str = Field(description="Advice for the date plan")
     ```
     """
 

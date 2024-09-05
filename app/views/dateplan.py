@@ -23,6 +23,7 @@ def dateplan_view(request: HttpRequest) -> HttpResponse:
     )
 
     date_plan_info = {
+        "title": date_plan.title,
         "message": date_plan.message,
         "steps": [
             {
@@ -37,6 +38,7 @@ def dateplan_view(request: HttpRequest) -> HttpResponse:
             }
             for step in date_plan.steps
         ],
+        "advice": date_plan.advice,
     }
 
     return render(request, "pages/dateplan.html", {"date_plan": date_plan_info})
