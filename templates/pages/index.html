@@ -6,6 +6,10 @@
     <form action={% url "select" %}>
         {% csrf_token %}
         <input type="text" name="area" placeholder="例: 赤羽" required>
+        <select name="genre">
+            <option value="">すべてのジャンル</option>
+            {% for genre in genres %}<option value="{{ genre.code }}">{{ genre.name }}</option>{% endfor %}
+        </select>
         <button type="submit">submit</button>
     </form>
 {% endblock content %}

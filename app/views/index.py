@@ -1,6 +1,9 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
+from ..services.grourmet import get_genres
+
 
 def index_view(request: HttpRequest) -> HttpResponse:
-    return render(request, "pages/index.html")
+    restaurant_genres = get_genres()
+    return render(request, "pages/index.html", {"genres": restaurant_genres})
