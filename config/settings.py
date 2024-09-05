@@ -84,6 +84,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+VECTOR_DB_DIR_PATH = os.path.join(BASE_DIR, "DB")
+
 HOT_PEPPER_API_KEY = env("HOT_PEPPER_API_KEY")
 OPENAI_API_KEY = env("OPENAI_API_KEY")
 GOOGLE_API_KEY = env("GOOGLE_API_KEY")

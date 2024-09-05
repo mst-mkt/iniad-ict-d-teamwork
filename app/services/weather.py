@@ -17,6 +17,4 @@ def get_weather(location: dict) -> dict:
     res = requests.get(OPENWEATHER_API_BASEURL, params=params)
     res_json = res.json()
 
-    print(res_json)
-
     return res_json

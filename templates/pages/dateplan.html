@@ -2,5 +2,7 @@
 {% load tabler_icons %}
 {% load static %}
 {% block content %}
-    {{ message }}
+    {{ message.message }}
+    <p>step</p>
+    {% for step in message.steps %}<p>{{ step.comment }}</p>{% endfor %}
 {% endblock content %}
