@@ -2,7 +2,16 @@
 {% load tabler_icons %}
 {% load static %}
 {% block content %}
-    {{ message.message }}
-    <p>step</p>
-    {% for step in message.steps %}<p>{{ step.comment }}</p>{% endfor %}
+    <h2>{{ date_plan.title }}</h2>
+    <p>{{ date_plan.message }}</p>
+    <div>
+        {% for step in date_plan.steps %}
+            <div class="card">
+                {{ step.title }}
+                {{ step.from_time }} ~ {{ step.to_time }}
+                {{ step.comment }}
+            </div>
+        {% endfor %}
+    </div>
+    <p>{{ date_plan.advice }}</p>
 {% endblock content %}
