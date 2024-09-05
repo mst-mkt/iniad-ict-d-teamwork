@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from ..services.grourmet import get_restaurants
 from ..services.maps import get_location, get_places
+from ..services.weather import get_weather
 
 
 def select_view(request: HttpRequest) -> HttpResponse:
@@ -14,7 +15,10 @@ def select_view(request: HttpRequest) -> HttpResponse:
 
     location = get_location(area)
     spots = get_places(location, 5000, "デートスポット")
+    weather = get_weather(location)
 
     return render(
-        request, "pages/select.html", {"restaurants": restaurants, "spots": spots}
+        request,
+        "pages/select.html",
+        {"restaurants": restaurants, "spots": spots, "weather": weather["weather"][0]},
     )

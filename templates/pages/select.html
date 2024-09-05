@@ -2,6 +2,7 @@
 {% load tabler_icons %}
 {% load static %}
 {% block content %}
+    {{ weather.main }} - {{ weather.description }}
     <form action={% url "dateplan" %}>
         {% csrf_token %}
         <h2>飲食店</h2>
