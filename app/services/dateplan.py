@@ -10,6 +10,17 @@ from config.settings import VECTOR_DB_DIR_PATH
 
 from ..constants import OPENAI_API_BASEURL
 
+embedding_function = OpenAIEmbeddings(openai_api_base=OPENAI_API_BASEURL)
+db = Chroma(persist_directory=VECTOR_DB_DIR_PATH, embedding_function=embedding_function)
+retriever = db.as_retriever(search_kwargs={"k": 3})
+
+llm = ChatOpenAI(
+    model_name="gpt-4o-mini",
+    temperature=0,
+    openai_api_base=OPENAI_API_BASEURL,
+    verbose=True,
+)
+
 
 class DatePlanStepModel(BaseModel):
     type: Literal["spot", "restaurant"] = Field(description="Type of the step")
@@ -29,16 +40,9 @@ def format_docs(docs):
 
 
 def create_date_plan_with_rag(spots, restaurants, weather_info, query):
-    embedding_function = OpenAIEmbeddings(
-        openai_api_base=OPENAI_API_BASEURL,
-    )
-    db = Chroma(
-        persist_directory=VECTOR_DB_DIR_PATH, embedding_function=embedding_function
-    )
-    retriever = db.as_retriever(search_kwargs={"k": 3})
-
     template = """以下のcontextのみに基づいて質問にできるだけ詳しくjson形式で答えなさい。:
     {context}
+
     質問: {question}
     出力形式:
     ```
@@ -56,20 +60,13 @@ def create_date_plan_with_rag(spots, restaurants, weather_info, query):
     ```
     """
 
-    prompt = ChatPromptTemplate.from_template(template)
-
-    llm = ChatOpenAI(
-        model_name="gpt-4o-mini",
-        temperature=0,
-        openai_api_base=OPENAI_API_BASEURL,
-        verbose=True,
-    )
-
-    def format_docs(docs):
-        return "\n\n".join([d.page_content for d in docs])
+    prompt = ChatPromptTemplate.from_template(template, partial_variables={})
 
     chain = (
-        {"context": retriever | format_docs, "question": RunnablePassthrough()}
+        {
+            "context": retriever | format_docs,
+            "question": RunnablePassthrough(),
+        }
         | prompt
         | llm.with_structured_output(DatePlanModel, method="json_mode")
     )
