@@ -4,14 +4,14 @@ from django.shortcuts import redirect
 
 from config.settings import HOT_PEPPER_API_KEY
 
+from ..constants import HOT_PEPPER_API_BASEURL
+
 
 def index_api(request: HttpRequest) -> HttpResponse:
     if not request.method == "POST":
         return redirect("index")
 
     area = request.POST.get("area")
-
-    url = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
 
     params = {
         "key": HOT_PEPPER_API_KEY,
@@ -20,7 +20,7 @@ def index_api(request: HttpRequest) -> HttpResponse:
         "format": "json",
     }
 
-    res = requests.get(url, params=params)
+    res = requests.get(HOT_PEPPER_API_BASEURL, params=params)
     res_json = res.json()
 
     shops = res_json["results"]["shop"]
