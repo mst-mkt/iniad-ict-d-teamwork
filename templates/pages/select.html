@@ -1,0 +1,17 @@
+{% extends "layouts/base.html" %}
+{% load tabler_icons %}
+{% load static %}
+{% block content %}
+    <form action={% url "dateplan" %}>
+        {% csrf_token %}
+        {% for shop in shops %}
+            <input type="checkbox"
+                   name="shop_ids"
+                   value="{{ shop.id }}"
+                   id="{{ shop.id }}">
+            <label for="{{ shop.id }}">{{ shop.name }}</label>
+            <br>
+        {% endfor %}
+        <button type="submit">submit</button>
+    </form>
+{% endblock content %}

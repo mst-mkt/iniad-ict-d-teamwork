@@ -1,5 +1,6 @@
 django
 django-tabler-icons
+django-environ
 
 langchain
 langchain_community

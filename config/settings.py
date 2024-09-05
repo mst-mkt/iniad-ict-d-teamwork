@@ -1,7 +1,14 @@
 import os
 from pathlib import Path
 
+import environ
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, ".env"))
+
 
 SECRET_KEY = "django-insecure-prb7o1jv47m(!796+6!ej3*04ecq*jknx#f%k!ogy(kgcg)up$"
 
@@ -76,3 +83,6 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+HOT_PEPPER_API_KEY = env("HOT_PEPPER_API_KEY")
+OPENAI_API_KEY = env("OPENAI_API_KEY")

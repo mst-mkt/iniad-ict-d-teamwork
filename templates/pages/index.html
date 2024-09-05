@@ -2,5 +2,10 @@
 {% load tabler_icons %}
 {% load static %}
 {% block content %}
-    <div>こんてんつ</div>
+    <h2>デートの詳細</h2>
+    <form action={% url "index_api" %} method="post">
+        {% csrf_token %}
+        <input type="text" name="area" placeholder="例: 赤羽" required>
+        <button type="submit">submit</button>
+    </form>
 {% endblock content %}
