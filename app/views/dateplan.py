@@ -22,8 +22,21 @@ def dateplan_view(request: HttpRequest) -> HttpResponse:
         spots, restaurants, weather_info, "デートプラン"
     )
 
-    print(date_plan)
+    date_plan_info = {
+        "message": date_plan.message,
+        "steps": [
+            {
+                "type": step.type,
+                "id": step.id,
+                "from_time": step.from_time,
+                "to_time": step.to_time,
+                "comment": step.comment,
+                "data": get_place_detail(step.id)
+                if step.type == "spot"
+                else get_restaurants({"id": [step.id]})[0],
+            }
+            for step in date_plan.steps
+        ],
+    }
 
-    context = {"shops": restaurants, "message": date_plan}
-
-    return render(request, "pages/dateplan.html", context)
+    return render(request, "pages/dateplan.html", {"date_plan": date_plan_info})
