@@ -20,5 +20,10 @@ def select_view(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "pages/select.html",
-        {"restaurants": restaurants, "spots": spots, "weather": weather["weather"][0]},
+        {
+            "area": area,
+            "restaurants": restaurants,
+            "spots": spots,
+            "weather": weather["weather"][0],
+        },
     )

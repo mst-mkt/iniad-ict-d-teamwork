@@ -5,6 +5,7 @@
     {{ weather.main }} - {{ weather.description }}
     <form action={% url "dateplan" %}>
         {% csrf_token %}
+        <input type="hidden" name="area" value="{{ area }}">
         <h2>飲食店</h2>
         <div>
             {% for restaurant in restaurants %}
