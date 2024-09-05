@@ -5,7 +5,7 @@ from config.settings import HOT_PEPPER_API_KEY
 from ..constants import HOT_PEPPER_API_BASEURL
 
 
-def get_shops(params: dict) -> list:
+def get_restaurants(params: dict) -> list:
     request_url = HOT_PEPPER_API_BASEURL + "gourmet/v1/"
     params = {
         **params,
@@ -22,7 +22,7 @@ def get_shops(params: dict) -> list:
     return shops
 
 
-def get_genres() -> list:
+def get_gourmet_genres() -> list:
     request_url = HOT_PEPPER_API_BASEURL + "genre/v1/"
     params = {
         "key": HOT_PEPPER_API_KEY,

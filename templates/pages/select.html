@@ -4,14 +4,28 @@
 {% block content %}
     <form action={% url "dateplan" %}>
         {% csrf_token %}
-        {% for shop in shops %}
-            <input type="checkbox"
-                   name="shop_ids"
-                   value="{{ shop.id }}"
-                   id="{{ shop.id }}">
-            <label for="{{ shop.id }}">{{ shop.name }}</label>
-            <br>
-        {% endfor %}
+        <h2>飲食店</h2>
+        <div>
+            {% for restaurant in restaurants %}
+                <input type="checkbox"
+                       name="restaurant_id"
+                       value="{{ restaurant.id }}"
+                       id="{{ restaurant.id }}">
+                <label for="{{ restaurant.id }}">{{ restaurant.name }}</label>
+                <br>
+            {% endfor %}
+        </div>
+        <h2>デートスポット</h2>
+        <div>
+            {% for spot in spots %}
+                <input type="checkbox"
+                       name="spot_id"
+                       value="{{ spot.place_id }}"
+                       id="{{ spot.place_id }}">
+                <label for="{{ spot.place_id }}">{{ spot.name }} - {{ spot.place_id }}</label>
+                <br>
+            {% endfor %}
+        </div>
         <button type="submit">submit</button>
     </form>
 {% endblock content %}
