@@ -10,6 +10,7 @@
             <option value="">すべてのジャンル</option>
             {% for genre in genres %}<option value="{{ genre.code }}">{{ genre.name }}</option>{% endfor %}
         </select>
+        <textarea name="query" placeholder="例: のんびりと過ごせる場所に行きたい"></textarea>
         <button type="submit">submit</button>
     </form>
 {% endblock content %}

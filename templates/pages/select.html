@@ -6,6 +6,7 @@
     <form action={% url "dateplan" %}>
         {% csrf_token %}
         <input type="hidden" name="area" value="{{ area }}">
+        <input type="hidden" name="query" value="{{ query }}">
         <h2>飲食店</h2>
         <div>
             {% for restaurant in restaurants %}

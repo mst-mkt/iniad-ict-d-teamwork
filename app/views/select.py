@@ -9,6 +9,7 @@ from ..services.weather import get_weather
 def select_view(request: HttpRequest) -> HttpResponse:
     area = request.GET.get("area")
     genre = request.GET.get("genre")
+    query = request.GET.get("query")
 
     restaurant_param = {"address": area, **({"genre": genre} if genre else {})}
     restaurants = get_restaurants(restaurant_param)
@@ -25,5 +26,6 @@ def select_view(request: HttpRequest) -> HttpResponse:
             "restaurants": restaurants,
             "spots": spots,
             "weather": weather["weather"][0],
+            "query": query,
         },
     )
