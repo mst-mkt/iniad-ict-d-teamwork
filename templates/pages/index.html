@@ -1,16 +1,22 @@
 {% extends "layouts/base.html" %}
 {% load tabler_icons %}
 {% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+{% endblock css %}
 {% block content %}
-    <h2>デートの詳細</h2>
-    <form action={% url "select" %}>
+    <h2 class="form-title">あなたに合ったデートプランを提案します。</h2>
+    <form action={% url "select" %} class="form">
         {% csrf_token %}
+        <h3>どこでデートを行いますか？</h3>
         <input type="text" name="area" placeholder="例: 赤羽" required>
+        <h3>飲食店の好みはありますか？</h3>
         <select name="genre">
             <option value="">すべてのジャンル</option>
             {% for genre in genres %}<option value="{{ genre.code }}">{{ genre.name }}</option>{% endfor %}
         </select>
-        <textarea name="query" placeholder="例: のんびりと過ごせる場所に行きたい"></textarea>
-        <button type="submit">submit</button>
+        <h3>どのようなデートにしたいですか？</h3>
+        <textarea name="query" placeholder="例: のんびりと過ごせる場所に行きたい"required></textarea>
+        <button type="submit">{% tabler_icon "heart" %}デートプランを作成</button>
     </form>
 {% endblock content %}

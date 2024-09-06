@@ -1,0 +1,49 @@
+.form-title {
+  text-align: center;
+  color: #d77;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  align-items: center;
+}
+
+.form > :is(input, select, textarea) {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: solid 1px #3333;
+  border-radius: 4px;
+  background-color: #fff;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #d775;
+  }
+}
+
+.form > textarea {
+  resize: vertical;
+  min-height: 200px;
+}
+
+.form > button {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  background-color: #d77;
+  color: #fff;
+  font-weight: bold;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #d77;
+  }
+}
