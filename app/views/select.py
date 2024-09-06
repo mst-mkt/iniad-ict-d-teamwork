@@ -25,6 +25,7 @@ def select_view(request: HttpRequest) -> HttpResponse:
         "pages/select.html",
         {
             "area": area,
+            "genre": genre,
             "restaurants": restaurants,
             "spots": spots,
             "weather": weather,

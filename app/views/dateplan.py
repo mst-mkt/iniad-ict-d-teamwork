@@ -5,23 +5,30 @@ from config.settings import GOOGLE_API_KEY
 
 from ..services.dateplan import create_date_plan_with_rag
 from ..services.grourmet import get_restaurants
-from ..services.maps import get_location, get_place_detail
+from ..services.maps import get_location, get_place_detail, get_places
 from ..services.weather import get_weather
 
 
 def dateplan_view(request: HttpRequest) -> HttpResponse:
     area = request.GET.get("area")
+    genre = request.GET.get("genre")
     restaurant_ids = request.GET.getlist("restaurant_id")
     spot_ids = request.GET.getlist("spot_id")
     query = request.GET.get("query")
 
     restaurants = get_restaurants({"id": restaurant_ids})
+    all_restaurants = get_restaurants(
+        {"address": area, **({"genre": genre} if genre else {})}
+    )
     spots = [get_place_detail(spot_id) for spot_id in spot_ids]
+    all_spots = get_places(get_location(area), 5000, "デートスポット")
 
     location = get_location(area)
     weather_info = get_weather(location)
 
-    date_plan = create_date_plan_with_rag(spots, restaurants, weather_info, query)
+    date_plan = create_date_plan_with_rag(
+        spots, restaurants, all_spots, all_restaurants, weather_info, query
+    )
 
     date_plan_info = {
         "title": date_plan.title,

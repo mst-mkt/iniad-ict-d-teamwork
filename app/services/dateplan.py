@@ -43,25 +43,43 @@ def format_docs(docs):
     return "\n\n".join([d.page_content for d in docs])
 
 
-def create_date_plan_with_rag(spots, restaurants, weather_info, query):
+def create_date_plan_with_rag(
+    spots, restaurants, all_spots, all_restaurants, weather_info, query
+):
     template = """
-    以下のcontextを使って、デートのプランを作成してください。
-    ```
+    # 以下のcontextをデートの失敗談に関する情報が含まれています。この情報を元に、デートプランを作成してください。
+    ```context
     {context}
     ```
 
-    また、以下のユーザーの要望を満たすようにしてください。
-    要望: {query}
-    デートスポット:
+    ## また、以下のユーザーの要望を満たすようにしてください。
+    ### 要望:
+    {query}
+    ### 興味のあるデートスポット:
     {spots}
-    飲食店:
+    ### 飲食店:
     {restaurants}
-    天気情報:
+    ### 天気情報:
     {weather}
+    ### steps数:
+    4 ~ 6
+    ### 文量
+    #### message:
+    長め
+    #### advice:
+    長め
+    #### comment:
+    短め
 
-    デートプランは以下の形式に**絶対に**従い、JSON形式で出力してください。
-    出力形式:
-    ```
+    ## 選択肢が不足している場合は以下の飲食店やデートスポットを参考にしてください。
+    ### 飲食店:
+    {all_restaurants}
+    ### デートスポット:
+    {all_spots}
+
+    ## デートプランは以下の形式に**絶対に**従い、JSON形式で出力してください。
+    ### 出力形式:
+    ```output_format
     class DatePlanStepModel(BaseModel):
         type: Literal["spot", "restaurant"] = Field(description="Type of the step")
         id: str = Field(description="ID of the spot or restaurant")
@@ -84,6 +102,10 @@ def create_date_plan_with_rag(spots, restaurants, weather_info, query):
             "spots": "\n\n".join([generate_place_info(spot) for spot in spots]),
             "restaurants": "\n\n".join(
                 [generate_gourmet_info(restaurant) for restaurant in restaurants]
+            ),
+            "all_spots": "\n\n".join([generate_place_info(spot) for spot in all_spots]),
+            "all_restaurants": "\n\n".join(
+                [generate_gourmet_info(restaurant) for restaurant in all_restaurants]
             ),
             "weather": weather_info["weather"][0]["description"],
         },

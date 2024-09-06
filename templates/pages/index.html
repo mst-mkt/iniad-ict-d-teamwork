@@ -11,12 +11,11 @@
         <h3>どこでデートを行いますか？</h3>
         <input type="text" name="area" placeholder="例: 赤羽" required>
         <h3>飲食店の好みはありますか？</h3>
-        <select name="genre">
-            <option value="">すべてのジャンル</option>
+        <select name="genre" required>
             {% for genre in genres %}<option value="{{ genre.code }}">{{ genre.name }}</option>{% endfor %}
         </select>
         <h3>どのようなデートにしたいですか？</h3>
-        <textarea name="query" placeholder="例: のんびりと過ごせる場所に行きたい"required></textarea>
+        <textarea name="query" placeholder="例: のんびりと過ごせる場所に行きたい" required></textarea>
         <button type="submit">{% tabler_icon "heart" %}デートプランを作成</button>
     </form>
 {% endblock content %}

@@ -25,6 +25,7 @@
     <form action={% url "dateplan" %} class="form">
         {% csrf_token %}
         <input type="hidden" name="area" value="{{ area }}">
+        <input type="hidden" name="genre" value="{{ genre }}">
         <input type="hidden" name="query" value="{{ query }}">
         <h3>興味のある飲食店を選んでください</h3>
         <div class="shop-list">
