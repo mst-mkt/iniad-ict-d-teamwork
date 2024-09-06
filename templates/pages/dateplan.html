@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="{% static "css/dateplan.css" %}">
 {% endblock css %}
 {% block content %}
-    <h2>{{ date_plan.title }}</h2>
+    <h2 class="dateplan-title">
+        {% tabler_icon "hash" %}
+        {{ date_plan.title }}
+    </h2>
     <p>{{ date_plan.message }}</p>
     <div class="steps">
         {% for step in date_plan.steps %}
@@ -17,5 +20,11 @@
             {% endif %}
         {% endfor %}
     </div>
-    <p>{{ date_plan.advice }}</p>
+    <div>
+        <h3 class="dateplan-title">
+            {% tabler_icon "speakerphone" %}
+            アドバイス
+        </h3>
+        <p>{{ date_plan.advice }}</p>
+    </div>
 {% endblock content %}
