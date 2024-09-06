@@ -1,34 +1,57 @@
 {% extends "layouts/base.html" %}
 {% load tabler_icons %}
 {% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/select.css" %}">
+{% endblock css %}
 {% block content %}
-    {{ weather.main }} - {{ weather.description }}
-    <form action={% url "dateplan" %}>
+    <h2 class="select-title">{{ area }}でのデートプラン</h2>
+    <div class="weather">
+        <div class="icon">
+            <img src="https://openweathermap.org/img/wn/{{ weather.weather.0.icon }}@2x.png"
+                 alt="{{ weather.weather.0.description }}">
+        </div>
+        <div class="content">
+            <p class="description">{{ weather.weather.0.description }}</p>
+            <p>気温: {{ weather.main.temp }}℃</p>
+            <p>湿度: {{ weather.main.humidity }}%</p>
+        </div>
+    </div>
+    <form action={% url "dateplan" %} class="form">
         {% csrf_token %}
         <input type="hidden" name="area" value="{{ area }}">
         <input type="hidden" name="query" value="{{ query }}">
-        <h2>飲食店</h2>
-        <div>
+        <h3>飲食店を選んでください</h3>
+        <div class="shop-list">
             {% for restaurant in restaurants %}
-                <input type="checkbox"
-                       name="restaurant_id"
-                       value="{{ restaurant.id }}"
-                       id="{{ restaurant.id }}">
-                <label for="{{ restaurant.id }}">{{ restaurant.name }}</label>
-                <br>
+                <label>
+                    <input type="checkbox" name="restaurant_id" value="{{ restaurant.id }}">
+                    <div class="image">
+                        <img src="{{ restaurant.logo_image }}" alt="{{ restaurant.name }}">
+                    </div>
+                    <div class="content">
+                        <h3>{{ restaurant.name }}</h3>
+                        <p>{{ restaurant.genre.name }}</p>
+                    </div>
+                </label>
             {% endfor %}
         </div>
-        <h2>デートスポット</h2>
-        <div>
+        <h3>デートスポットを選んでください</h3>
+        <div class="shop-list">
             {% for spot in spots %}
-                <input type="checkbox"
-                       name="spot_id"
-                       value="{{ spot.place_id }}"
-                       id="{{ spot.place_id }}">
-                <label for="{{ spot.place_id }}">{{ spot.name }} - {{ spot.place_id }}</label>
-                <br>
+                <label>
+                    <input type="checkbox" name="spot_id" value="{{ spot.place_id }}">
+                    <div class="image">
+                        <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={{ spot.photos.0.photo_reference }}&key={{ maps_api_key }}"
+                             alt="{{ spot.name }}">
+                    </div>
+                    <div class="content">
+                        <h3>{{ spot.name }}</h3>
+                        <p>{{ spot.vicinity }}</p>
+                    </div>
+                </label>
             {% endfor %}
         </div>
-        <button type="submit">submit</button>
+        <button type="submit">{% tabler_icon "heart" %}デートプランを作成</button>
     </form>
 {% endblock content %}

@@ -1,6 +1,8 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
+from config.settings import GOOGLE_API_KEY
+
 from ..services.grourmet import get_restaurants
 from ..services.maps import get_location, get_places
 from ..services.weather import get_weather
@@ -25,7 +27,8 @@ def select_view(request: HttpRequest) -> HttpResponse:
             "area": area,
             "restaurants": restaurants,
             "spots": spots,
-            "weather": weather["weather"][0],
+            "weather": weather,
             "query": query,
+            "maps_api_key": GOOGLE_API_KEY,
         },
     )
