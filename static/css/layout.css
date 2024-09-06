@@ -45,7 +45,7 @@
   transition: color 0.2s;
 
   &:hover {
-    color: #2469ff;
+    color: #d77;
     text-decoration: none;
   }
 
@@ -107,7 +107,7 @@
   font-size: 1rem;
 
   &:hover {
-    color: #2469ff;
+    color: #d77;
     text-decoration: none;
   }
 
