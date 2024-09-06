@@ -1,6 +1,8 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
+from config.settings import GOOGLE_API_KEY
+
 from ..services.dateplan import create_date_plan_with_rag
 from ..services.grourmet import get_restaurants
 from ..services.maps import get_location, get_place_detail
@@ -40,4 +42,8 @@ def dateplan_view(request: HttpRequest) -> HttpResponse:
         "advice": date_plan.advice,
     }
 
-    return render(request, "pages/dateplan.html", {"date_plan": date_plan_info})
+    return render(
+        request,
+        "pages/dateplan.html",
+        {"date_plan": date_plan_info, "maps_api_key": GOOGLE_API_KEY},
+    )

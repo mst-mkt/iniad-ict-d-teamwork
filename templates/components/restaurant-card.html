@@ -1,0 +1,19 @@
+{% load tabler_icons %}
+<div class="card-container">
+    <div class="time">
+        <p>{{ restaurant.from_time }}</p>
+        <p>{{ restaurant.to_time }}</p>
+    </div>
+    <div class="card">
+        <div class="image">
+            <img src="{{ restaurant.data.logo_image }}"
+                 alt="{{ restaurant.data.name }}">
+        </div>
+        <div class="content">
+            <h3 class="title">{{ restaurant.data.name }}</h3>
+            <p class="location">{% tabler_icon "map-pin" %} {{ restaurant.data.station_name }}</p>
+            <p class="comment">{{ restaurant.comment }}</p>
+            <a class="link" href="{{ restaurant.data.urls.pc }}">{% tabler_icon "chevron-right" %}詳細</a>
+        </div>
+    </div>
+</div>

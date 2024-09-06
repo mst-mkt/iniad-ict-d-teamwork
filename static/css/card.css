@@ -1,0 +1,82 @@
+.card-container {
+  display: flex;
+  column-gap: 16px;
+}
+
+.card-container > .time {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: 16px;
+  color: #555;
+
+  & > p {
+    margin: 0;
+    font-weight: bold;
+  }
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 16px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.card > .image {
+  flex-shrink: 0;
+  flex-grow: 0;
+  aspect-ratio: 1;
+  width: 128px;
+  height: 128px;
+
+  & > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+}
+
+.card > .content {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 8px;
+  padding: 8px;
+
+  & > :is(h3, p) {
+    margin: 0;
+  }
+}
+
+.card > .content > .location {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+
+  & > p {
+    margin: 0;
+    font-size: 0.8em;
+  }
+
+  & > svg {
+    width: 16px;
+    height: 16px;
+    color: #333;
+  }
+}
+
+.card > .content > .link {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  color: #d77;
+}

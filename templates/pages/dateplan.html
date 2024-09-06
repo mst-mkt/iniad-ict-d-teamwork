@@ -1,16 +1,20 @@
 {% extends "layouts/base.html" %}
 {% load tabler_icons %}
 {% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/card.css" %}">
+    <link rel="stylesheet" href="{% static "css/dateplan.css" %}">
+{% endblock css %}
 {% block content %}
     <h2>{{ date_plan.title }}</h2>
     <p>{{ date_plan.message }}</p>
-    <div>
+    <div class="steps">
         {% for step in date_plan.steps %}
-            <div class="card">
-                {{ step.title }}
-                {{ step.from_time }} ~ {{ step.to_time }}
-                {{ step.comment }}
-            </div>
+            {% if step.type == "spot" %}
+                {% include "components/place-card.html" with place=step api_key=maps_api_key %}
+            {% else %}
+                {% include "components/restaurant-card.html" with restaurant=step %}
+            {% endif %}
         {% endfor %}
     </div>
     <p>{{ date_plan.advice }}</p>
