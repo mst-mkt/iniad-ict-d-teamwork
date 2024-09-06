@@ -26,7 +26,7 @@
         {% csrf_token %}
         <input type="hidden" name="area" value="{{ area }}">
         <input type="hidden" name="query" value="{{ query }}">
-        <h3>飲食店を選んでください</h3>
+        <h3>興味のある飲食店を選んでください</h3>
         <div class="shop-list">
             {% for restaurant in restaurants %}
                 <label>
@@ -41,7 +41,7 @@
                 </label>
             {% endfor %}
         </div>
-        <h3>デートスポットを選んでください</h3>
+        <h3>興味のあるデートスポットを選んでください</h3>
         <div class="shop-list">
             {% for spot in spots %}
                 <label>
