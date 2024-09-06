@@ -3,8 +3,13 @@
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static "css/select.css" %}">
+    <link rel="stylesheet" href="{% static 'css/loading.css' %}">
 {% endblock css %}
+{% block js %}
+    <script src="{% static 'js/loading.js' %}"></script>
+{% endblock js %}
 {% block content %}
+    {% include "components/ui/loading.html" %}
     <h2 class="select-title">{{ area }}でのデートプラン</h2>
     <div class="weather">
         <div class="icon">
@@ -52,6 +57,6 @@
                 </label>
             {% endfor %}
         </div>
-        <button type="submit">{% tabler_icon "heart" %}デートプランを作成</button>
+        <button type="submit" id="call_loading">{% tabler_icon "heart" %}デートプランを作成</button>
     </form>
 {% endblock content %}

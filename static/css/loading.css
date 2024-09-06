@@ -1,0 +1,34 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #5554;
+  backdrop-filter: blur(4px);
+  width: 100svw;
+  height: 100svh;
+}
+
+.loading.active {
+  display: flex;
+}
+
+.loading > svg {
+  animation: spin 1s linear infinite;
+  width: 128px;
+  height: 128px;
+  color: #d77;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
